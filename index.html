@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vistara Escapes — Timeshare Marketplace · Demo</title>
+<meta name="description" content="Vistara Escapes is a fictional timeshare rental marketplace demo by TablePilot Studio, connecting timeshare owners with travellers. All listings, prices and accounts are illustrative.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%230C2432'/%3E%3Cpath d='M6 20h20M16 6c3.5 5 3.5 8 0 8s-3.5-3 0-8ZM16 14v6' stroke='%23C9A227' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0C2432;
+  --deep-2:#123547;
+  --deep-3:#1B4658;
+  --gold:#C9A227;
+  --gold-2:#E2C56B;
+  --gold-soft:#F7EFD8;
+  --sand:#F6F2EA;
+  --sand-2:#EFE8DA;
+  --white:#FFFFFF;
+  --ink:#14202A;
+  --muted:#5A6A75;
+  --muted-2:#8A98A2;
+  --line:rgba(20,32,42,.12);
+  --line-d:rgba(255,255,255,.14);
+  --serif:'Marcellus','Cormorant Garamond',Georgia,serif;
+  --sans:'Manrope','Segoe UI',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--sand);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;font-size:15.5px}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1200px;margin:0 auto;padding:0 26px}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;line-height:1.12;letter-spacing:.01em}
+h2{font-size:clamp(28px,4vw,42px);margin:12px 0 16px;color:var(--deep)}
+.kicker{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.kicker::before{content:"";width:24px;height:1.5px;background:var(--gold)}
+.sec-head{max-width:660px;margin-bottom:48px}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.sec-head.center .kicker::after{content:"";width:24px;height:1.5px;background:var(--gold);display:inline-block}
+.sec-head p{color:var(--muted);font-size:16px}
+.sec-head.center p{margin-left:auto;margin-right:auto}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--deep);color:#fff;font-size:13.5px;font-weight:600;padding:13px 22px;border-radius:8px;opacity:0;visibility:hidden;transition:all .3s;z-index:400;box-shadow:0 18px 44px rgba(12,36,50,.35);white-space:nowrap}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:inherit;font-weight:700;font-size:13.5px;letter-spacing:.04em;padding:13px 26px;border-radius:6px;border:1px solid transparent;transition:all .22s}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{background:var(--gold-2);color:var(--deep)}
+.btn-deep{background:var(--deep);color:#fff}
+.btn-deep:hover{background:var(--deep-3)}
+.btn-line{background:transparent;color:var(--deep);border-color:var(--line)}
+.btn-line:hover{border-color:var(--gold);color:var(--gold)}
+.btn-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn-light:hover{border-color:#fff;color:var(--gold-2)}
+.btn-sm{padding:10px 18px;font-size:12.5px}
+.input,.select,select,input[type=text],input[type=email],input[type=tel],input[type=password],input[type=date],input[type=number],select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:7px;font-family:inherit;font-size:14.5px;color:var(--ink);background:#fff;transition:border .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.15)}
+select option{color:var(--ink)}
+
+/* ---------- header ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .mark{width:34px;height:34px;border:1.5px solid var(--gold);border-radius:8px;position:relative;flex-shrink:0;background:var(--deep)}
+.brand .mark::before{content:"";position:absolute;left:6px;top:14px;width:20px;height:1.5px;background:var(--gold)}
+.brand .mark::after{content:"";position:absolute;left:16px;top:6px;width:1.5px;height:20px;background:var(--gold)}
+.brand .b-txt b{font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:.03em;color:var(--deep);display:block;line-height:1.1}
+.brand .b-txt span{font-size:8.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+.nav-links a{font-size:12.5px;font-weight:600;letter-spacing:.08em;color:var(--muted);padding:6px 0;position:relative;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--deep)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .25s}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-side{display:flex;align-items:center;gap:12px}
+.nav-side .wish{position:relative;background:none;border:none;color:var(--deep);font-size:20px;width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+.nav-side .wish .cnt{position:absolute;top:2px;right:0;background:var(--gold);color:#fff;font-size:10px;font-weight:800;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:6px;width:42px;height:42px;color:var(--deep);font-size:19px;align-items:center;justify-content:center}
+@media (max-width:980px){
+  .menu-btn{display:inline-flex}
+  .nav-links{position:fixed;top:74px;left:0;right:0;background:#fff;flex-direction:column;align-items:flex-start;gap:2px;padding:16px 26px 24px;border-bottom:1px solid var(--line);transform:translateY(-135%);transition:transform .32s ease;box-shadow:0 30px 44px rgba(12,36,50,.15)}
+  .nav-links.open{transform:none}
+  .nav-links li{width:100%}
+  .nav-links a{display:block;padding:13px 0;font-size:14px;border-bottom:1px solid rgba(20,32,42,.07);width:100%}
+  .nav-side .btn-deep{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{padding:0;margin-top:74px;position:relative;overflow:hidden;background:var(--deep)}
+.hero-media{position:relative;height:min(78vh,660px);min-height:540px}
+.hero-media img{width:100%;height:100%;object-fit:cover;opacity:.5}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,36,50,.55) 0%,rgba(12,36,50,.28) 45%,rgba(12,36,50,.94) 100%)}
+.hero-in{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:64px 0 56px}
+.hero .kicker{color:var(--gold-2)}
+.hero .kicker::before{background:var(--gold-2)}
+.hero h1{font-size:clamp(38px,6vw,66px);color:#fff;max-width:780px;margin:18px 0 16px}
+.hero h1 em{font-style:normal;color:var(--gold-2)}
+.hero p{color:#C9D6DC;font-size:16.5px;max-width:560px}
+.search-bar{display:grid;grid-template-columns:1fr;gap:10px;background:#fff;border-radius:12px;padding:14px;margin-top:32px;box-shadow:0 30px 60px rgba(12,36,50,.3);max-width:820px}
+@media (min-width:720px){.search-bar{grid-template-columns:1.4fr 1fr 1fr auto}}
+.search-bar label{display:block;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);margin-bottom:5px}
+.search-bar input,.search-bar select{border:none;padding:6px 2px;background:transparent;font-size:14.5px;font-weight:600;color:var(--deep)}
+.search-bar input:focus,.search-bar select:focus{box-shadow:none;border:none}
+.search-bar .sb-btn{background:var(--gold);color:#fff;font-weight:800;font-size:14px;padding:14px 26px;border-radius:8px;border:none;transition:background .22s}
+.search-bar .sb-btn:hover{background:var(--gold-2);color:var(--deep)}
+.hero-trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:#A7B8C0;font-weight:600;letter-spacing:.05em}
+
+/* ---------- featured ---------- */
+section{padding:90px 0}
+.f-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:640px){.f-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1020px){.f-grid{grid-template-columns:repeat(4,1fr)}}
+.listing-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer}
+.listing-card:hover{transform:translateY(-5px);box-shadow:0 26px 52px rgba(12,36,50,.12)}
+.lc-img{position:relative;overflow:hidden}
+.lc-img img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .6s}
+.listing-card:hover .lc-img img{transform:scale(1.05)}
+.lc-tag{position:absolute;top:12px;left:12px;background:rgba(12,36,50,.85);color:var(--gold-2);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:4px}
+.lc-wish{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.95);border:none;color:var(--deep);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.lc-wish.saved{color:var(--gold)}
+.lc-body{padding:18px 20px 20px}
+.lc-body .lc-dest{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.lc-body h3{font-size:18px;color:var(--deep);margin:7px 0 4px}
+.lc-body .lc-meta{font-size:13px;color:var(--muted)}
+.lc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;padding-top:12px;border-top:1px solid rgba(20,32,42,.08)}
+.lc-foot .lc-price{font-size:12px;color:var(--muted)}
+.lc-foot .lc-price b{font-family:var(--serif);font-size:19px;color:var(--deep);font-weight:400}
+.lc-foot .lc-pts{font-size:11.5px;color:var(--muted-2);font-weight:600}
+
+/* ---------- how ---------- */
+.how{background:var(--white);border-block:1px solid var(--line)}
+.h-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:720px){.h-grid{grid-template-columns:repeat(3,1fr)}}
+.h-card{border:1px solid var(--line);border-radius:12px;padding:30px 26px;background:var(--sand);position:relative}
+.h-num{font-family:var(--serif);font-size:44px;color:rgba(201,162,39,.35);position:absolute;top:16px;right:20px;line-height:1}
+.h-card h3{font-size:19px;color:var(--deep);margin-bottom:9px}
+.h-card p{font-size:13.5px;color:var(--muted)}
+
+/* ---------- dual cta ---------- */
+.dual{background:var(--deep);color:#fff}
+.dual .sec-head h2{color:#fff}
+.dual .sec-head p{color:#A7B8C0}
+.dual .kicker{color:var(--gold-2)}
+.dual .kicker::before{background:var(--gold-2)}
+.d-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:820px){.d-grid{grid-template-columns:1fr 1fr;gap:26px}}
+.d-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:36px 32px}
+.d-card h3{font-size:26px;color:#fff;margin-bottom:10px}
+.d-card p{font-size:14.5px;color:#B9C8CF;margin-bottom:18px}
+.d-fees{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.d-fee{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed rgba(255,255,255,.2);padding:8px 0;font-size:14px;color:#D6DFE3}
+.d-fee b{font-family:var(--serif);font-size:17px;color:var(--gold-2);font-weight:400}
+.d-card ul{list-style:none;display:grid;gap:8px;margin-bottom:24px}
+.d-card ul li{display:flex;gap:10px;font-size:13.5px;color:#C9D6DC}
+.d-card ul li::before{content:"✓";color:var(--gold-2);font-weight:800}
+
+/* ---------- destinations ---------- */
+.dest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (min-width:900px){.dest-grid{grid-template-columns:repeat(6,1fr)}}
+.dest{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/4;cursor:pointer;border:1px solid var(--line)}
+.dest img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.dest:hover img{transform:scale(1.07)}
+.dest::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(12,36,50,.85))}
+.dest b{position:absolute;left:12px;bottom:10px;z-index:2;color:#fff;font-family:var(--serif);font-size:15px;font-weight:400}
+.dest span{position:absolute;left:12px;bottom:30px;z-index:2;color:var(--gold-2);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+
+/* ---------- faq ---------- */
+.faq{background:var(--white);border-block:1px solid var(--line)}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:var(--sand);overflow:hidden}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:17px 22px;background:none;border:none;font-family:var(--sans);font-size:15px;font-weight:700;color:var(--deep);text-align:left}
+.faq-q .plus{font-size:20px;color:var(--gold);transition:transform .25s;flex-shrink:0}
+.faq-item.open .plus{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .32s ease}
+.faq-a p{padding:0 22px 18px;font-size:14px;color:var(--muted)}
+.faq-item.open .faq-a{max-height:260px}
+
+/* ---------- policies strip ---------- */
+.pol-strip{border-bottom:1px solid var(--line);padding:34px 0}
+.pol-grid{display:flex;flex-wrap:wrap;gap:10px 14px;justify-content:center}
+.pol-link{font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);padding:8px 15px;border-radius:30px;transition:all .2s;cursor:pointer;background:#fff}
+.pol-link:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ---------- footer ---------- */
+footer{background:var(--deep);color:#A7B8C0;padding:60px 0 0}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:36px;padding-bottom:44px}
+@media (min-width:760px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:44px}}
+.foot-grid h4{font-family:var(--serif);font-size:16px;color:#fff;margin-bottom:14px}
+.foot-grid a{display:block;font-size:13.5px;color:#A7B8C0;padding:5px 0;transition:color .2s;cursor:pointer}
+.foot-grid a:hover{color:var(--gold-2)}
+.foot-brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:21px;color:#fff;margin-bottom:12px}
+.foot-brand .mark{width:26px;height:26px;border:1.5px solid var(--gold);border-radius:6px;position:relative;flex-shrink:0}
+.foot-brand .mark::before{content:"";position:absolute;left:5px;top:11px;width:14px;height:1.5px;background:var(--gold)}
+.foot-brand .mark::after{content:"";position:absolute;left:11px;top:5px;width:1.5px;height:14px;background:var(--gold)}
+.foot-copy{font-size:13.5px;color:#8A98A2;max-width:330px;line-height:1.75}
+.demo-banner{margin-top:16px;border:1px solid rgba(201,162,39,.45);background:rgba(201,162,39,.09);border-radius:8px;padding:12px 16px;font-size:12.5px;color:#D9C48F;line-height:1.7}
+.social{display:flex;gap:10px;margin-top:14px}
+.social a{width:38px;height:38px;border:1px solid rgba(255,255,255,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#C9D6DC;transition:all .2s}
+.social a:hover{border-color:var(--gold);color:var(--gold-2)}
+.maker{background:#081A25;border-top:1px solid rgba(255,255,255,.08);color:#6E838D;text-align:center;font-size:12px;letter-spacing:.05em;padding:17px 0}
+.maker b{color:var(--gold-2);font-weight:600}
+
+/* ---------- view routing ---------- */
+.view{display:none}
+.view.active{display:block}
+.page-head{background:var(--deep);color:#fff;padding:120px 0 56px}
+.page-head .kicker{color:var(--gold-2)}
+.page-head .kicker::before{background:var(--gold-2)}
+.page-head h1{font-size:clamp(30px,4.4vw,48px);color:#fff;margin:14px 0 10px}
+.page-head p{color:#A7B8C0;font-size:15.5px;max-width:620px}
+</style>
+</head>
+<body>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="wrap nav">
+    <a href="#/home" class="brand">
+      <span class="mark"></span>
+      <span class="b-txt"><b>Vistara Escapes</b><span>Timeshare marketplace</span></span>
+    </a>
+    <nav aria-label="Main">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#/home" data-nav="home">Home</a></li>
+        <li><a href="#/listings" data-nav="listings">Stays</a></li>
+        <li><a href="#/owner" data-nav="owner">For Owners</a></li>
+        <li><a href="#/traveler" data-nav="traveler">For Travelers</a></li>
+        <li><a href="#/about" data-nav="about">About</a></li>
+        <li><a href="#/contact" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-side">
+      <button class="wish" id="wishBtn" aria-label="Saved stays"><span aria-hidden="true">♥</span><span class="cnt" id="wishCnt">0</span></button>
+      <button class="btn btn-deep btn-sm" onclick="location.hash='#/owner'">List a stay</button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ VIEW: HOME ============ -->
+<div class="view active" id="view-home">
+  <section class="hero">
+    <div class="hero-media"><img src="assets/hero.webp" alt="Luxury island resort at dusk" fetchpriority="high"></div>
+    <div class="wrap"><div class="hero-in">
+      <span class="kicker">Timeshare rentals, curated</span>
+      <h1>Owners list. Travelers stay. <em>Everyone escapes.</em></h1>
+      <p>Vistara Escapes connects timeshare owners with travellers seeking exceptional resort stays — worldwide, verified, and beautifully presented.</p>
+      <div class="search-bar">
+        <div><label for="sDest">Destination</label><select id="sDest"><option value="">Any destination</option><option>Maldives</option><option>Bali</option><option>Swiss Alps</option><option>Miami</option><option>Santorini</option><option>Bora Bora</option></select></div>
+        <div><label for="sDate">Check-in</label><input type="date" id="sDate"></div>
+        <div><label for="sGuests">Guests</label><select id="sGuests"><option value="">Any</option><option>2</option><option>4</option><option>6</option><option>8+</option></select></div>
+        <button class="sb-btn" onclick="doSearch()">Search stays</button>
+      </div>
+      <div class="hero-trust"><span>✓ Verified owners</span><span>✓ Secure request flow</span><span>✓ 5% booking fee · demo</span><span>✓ 24/7 support</span></div>
+    </div></div>
+  </section>
+
+  <section class="featured">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Featured stays</span>
+        <h2>This season's most-loved weeks</h2>
+        <p>Illustrative listings from our fictional demo marketplace. Every stay is a timeshare week listed by its owner.</p>
+      </div>
+      <div class="f-grid" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="kicker">How it works</span>
+        <h2>From week to wonder in three steps</h2>
+      </div>
+      <div class="h-grid">
+        <div class="h-card rv"><span class="h-num">01</span><h3>Search &amp; request</h3><p>Browse stays by destination, dates and resort. Send a booking request — no payment yet.</p></div>
+        <div class="h-card rv"><span class="h-num">02</span><h3>Owner confirms</h3><p>The owner confirms availability and terms. You agree and pay securely through Vistara.</p></div>
+        <div class="h-card rv"><span class="h-num">03</span><h3>Check in &amp; relax</h3><p>Receive your confirmation and resort details. Enjoy the week — we handle the paperwork.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dual">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="kicker">Two sides, one marketplace</span>
+        <h2>Built for owners. Designed for travelers.</h2>
+        <p>Illustrative pricing structure for this demo platform.</p>
+      </div>
+      <div class="d-grid">
+        <div class="d-card rv">
+          <h3>For Timeshare Owners</h3>
+          <p>Turn unused weeks into income. List, manage and receive booking requests with full control.</p>
+          <div class="d-fees">
+            <div class="d-fee"><span>Listing fee (per stay listed)</span><b>$49.99</b></div>
+            <div class="d-fee"><span>Annual owner membership</span><b>$19.99</b></div>
+            <div class="d-fee"><span>Booking commission</span><b>5%</b></div>
+          </div>
+          <ul>
+            <li>Owner dashboard &amp; listing management</li>
+            <li>Photo uploads and full stay details</li>
+            <li>Receive booking requests &amp; email alerts</li>
+            <li>Secure owner payouts after stays</li>
+          </ul>
+          <button class="btn btn-gold" onclick="location.hash='#/owner'">Create an owner account</button>
+        </div>
+        <div class="d-card rv">
+          <h3>For Travelers</h3>
+          <p>Find resort weeks at a fraction of retail. Request, confirm and pay with confidence.</p>
+          <div class="d-fees">
+            <div class="d-fee"><span>Traveler membership</span><b>Free</b></div>
+            <div class="d-fee"><span>Booking fee charged to owner</span><b>5%</b></div>
+            <div class="d-fee"><span>Secure payments &amp; confirmations</span><b>Included</b></div>
+          </div>
+          <ul>
+            <li>Search by destination, dates &amp; resort</li>
+            <li>Submit booking requests in minutes</li>
+            <li>Secure payment processing (demo)</li>
+            <li>Traveler dashboard for trips &amp; saved stays</li>
+          </ul>
+          <button class="btn btn-light" onclick="location.hash='#/traveler'">Create a traveler account</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="destinations">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Top destinations</span>
+        <h2>Where the world escapes</h2>
+      </div>
+      <div class="dest-grid">
+        <div class="dest rv" onclick="location.hash='#/listings'"><img src="assets/lagoon.webp" alt="Maldives lagoon" loading="lazy"><span>Island weeks</span><b>Maldives</b></div>
+        <div class="dest rv" onclick="location.hash='#/listings'"><img src="assets/garden.webp" alt="Bali garden pool" loading="lazy"><span>Tropical gardens</span><b>Bali</b></div>
+        <div class="dest rv" onclick="location.hash='#/listings'"><img src="assets/lodge.webp" alt="Swiss alpine lodge" loading="lazy"><span>Alpine escapes</span><b>Swiss Alps</b></div>
+        <div class="dest rv" onclick="location.hash='#/listings'"><img src="assets/suite.webp" alt="Miami ocean suite" loading="lazy"><span>City &amp; sea</span><b>Miami</b></div>
+        <div class="dest rv" onclick="location.hash='#/listings'"><img src="assets/villa.webp" alt="Santorini villa" loading="lazy"><span>Cliffside views</span><b>Santorini</b></div>
+        <div class="dest rv" onclick="location.hash='#/listings'"><img src="assets/hero.webp" alt="Bora Bora resort" loading="lazy"><span>Overwater magic</span><b>Bora Bora</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faqHome">
+    <div class="wrap">
+      <div class="sec-head center rv">
+        <span class="kicker">Questions</span>
+        <h2>Frequently asked</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item rv"><button class="faq-q">How does Vistara Escapes work?<span class="plus">+</span></button><div class="faq-a"><p>Owners list their timeshare weeks; travelers search and request. When both sides agree, the traveler pays securely and receives a confirmation. This demo shows the flow with illustrative data.</p></div></div>
+        <div class="faq-item rv"><button class="faq-q">What does it cost to list a stay?<span class="plus">+</span></button><div class="faq-a"><p>Illustrative pricing: a one-time listing fee of $49.99 per stay, plus an annual owner membership of $19.99. Completed bookings carry a 5% platform fee.</p></div></div>
+        <div class="faq-item rv"><button class="faq-q">Is payment secure?<span class="plus">+</span></button><div class="faq-a"><p>This is a front-end demonstration — no real payment is processed. A production build would integrate a PCI-compliant payment provider for owner payouts and platform fees.</p></div></div>
+        <div class="faq-item rv"><button class="faq-q">Can I cancel a booking?<span class="plus">+</span></button><div class="faq-a"><p>Cancellation and refund terms are set per stay and shown at booking. This demo includes an illustrative refund policy in the policies section.</p></div></div>
+        <div class="faq-item rv"><button class="faq-q">What are timeshare points?<span class="plus">+</span></button><div class="faq-a"><p>Points are a common timeshare currency. Listings here display illustrative point values so travelers can compare weeks.</p></div></div>
+        <div class="faq-item rv"><button class="faq-q">Is this a real marketplace?<span class="plus">+</span></button><div class="faq-a"><p>No. Vistara Escapes is a fictional demonstration website built by TablePilot Studio to showcase a marketplace concept. All listings, prices and accounts are illustrative.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pol-strip">
+    <div class="wrap"><div class="pol-grid" id="polStrip"></div></div>
+  </div>
+</div>
+
+<!-- ============ VIEW: LISTINGS ============ -->
+<div class="view" id="view-listings">
+  <div class="page-head">
+    <div class="wrap">
+      <span class="kicker">Explore stays</span>
+      <h1>Find your week</h1>
+      <p>Illustrative demo listings. Filter by destination, resort, price and points — then send a booking request.</p>
+    </div>
+  </div>
+  <section style="padding-top:56px">
+    <div class="wrap">
+      <div class="filter-bar" style="display:grid;grid-template-columns:1fr;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:30px">
+        <div style="display:grid;grid-template-columns:1fr;gap:12px" id="filterGrid">
+          <div><label class="fl" style="font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:5px">Destination</label><select id="fDest"><option value="">All destinations</option><option>Maldives</option><option>Bali</option><option>Swiss Alps</option><option>Miami</option><option>Santorini</option><option>Bora Bora</option></select></div>
+          <div><label class="fl" style="font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:5px">Resort</label><select id="fResort"><option value="">Any resort</option><option>Aurora Bay Resort</option><option>Laguna Gardens</option><option>Alpine Crest Lodge</option><option>Ocean Grand</option><option>White Cliff Retreat</option><option>Blue Atoll Resort</option></select></div>
+          <div><label class="fl" style="font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:5px">Max price / night</label><select id="fPrice"><option value="99999">Any</option><option value="250">Under $250</option><option value="350">Under $350</option><option value="500">Under $500</option></select></div>
+          <div><label class="fl" style="font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:5px">Bedrooms</label><select id="fBed"><option value="0">Any</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+          <div><label class="fl" style="font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:5px">Sort</label><select id="fSort"><option value="featured">Featured</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="points-asc">Points: low to high</option></select></div>
+          <div style="display:flex;align-items:flex-end"><input type="text" id="fSearch" placeholder="Search stays…" style="height:46px"></div>
+        </div>
+        <div style="font-size:12.5px;color:var(--muted)" id="listCount"></div>
+      </div>
+      <div class="f-grid" id="listingsGrid"></div>
+      <p style="margin-top:30px;font-size:12.5px;color:var(--muted-2);text-align:center">All listings, prices and points are illustrative demo content.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VIEW: LISTING DETAIL ============ -->
+<div class="view" id="view-listing">
+  <section style="padding-top:110px">
+    <div class="wrap">
+      <div id="listingDetail"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VIEW: OWNER ============ -->
+<div class="view" id="view-owner">
+  <div class="page-head">
+    <div class="wrap">
+      <span class="kicker">For timeshare owners</span>
+      <h1>Turn weeks into income</h1>
+      <p>List your timeshare, manage requests and get paid — all in one place. Demo flow with illustrative data.</p>
+    </div>
+  </div>
+  <section style="padding-top:56px">
+    <div class="wrap">
+      <div class="o-grid" style="display:grid;grid-template-columns:1fr;gap:26px">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px">
+          <div class="auth-tabs" style="display:flex;gap:8px;margin-bottom:26px">
+            <button class="auth-tab on" data-tab="login">Owner login</button>
+            <button class="auth-tab" data-tab="register">Register</button>
+          </div>
+          <form id="ownerLogin" novalidate>
+            <div style="display:grid;grid-template-columns:1fr;gap:14px">
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input type="email" id="oEmail" placeholder="owner@example.com"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a valid email.</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Password *</label><input type="password" id="oPass" placeholder="••••••••"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a password (min 6 chars).</div></div>
+              <button type="submit" class="btn btn-deep" style="width:100%">Sign in (demo)</button>
+              <p style="font-size:11.5px;color:var(--muted-2);text-align:center">Demo only — no real account is created.</p>
+            </div>
+          </form>
+          <form id="ownerRegister" style="display:none" novalidate>
+            <div style="display:grid;grid-template-columns:1fr;gap:14px">
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Full name *</label><input type="text" id="orName" placeholder="Owner name"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter your name.</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input type="email" id="orEmail" placeholder="owner@example.com"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a valid email.</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Password *</label><input type="password" id="orPass" placeholder="Min 6 characters"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Min 6 characters.</div></div>
+              <div style="background:var(--gold-soft);border:1px dashed var(--gold);border-radius:8px;padding:13px 16px;font-size:12.5px;color:#7A6420">
+                <b>Demo fees:</b> Listing fee $49.99 per stay · Annual membership $19.99 · 5% booking commission. No payment is processed here.
+              </div>
+              <button type="submit" class="btn btn-gold" style="width:100%">Register as owner (demo)</button>
+              <p style="font-size:11.5px;color:var(--muted-2);text-align:center">Demo only — no real account is created.</p>
+            </div>
+          </form>
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px">
+          <h3 style="font-size:22px;color:var(--deep);margin-bottom:6px">List a new stay</h3>
+          <p style="font-size:13.5px;color:var(--muted);margin-bottom:22px">Illustrative listing form — fields mirror what a production marketplace would collect.</p>
+          <form id="listForm" novalidate>
+            <div style="display:grid;grid-template-columns:1fr;gap:14px">
+              <div style="display:grid;grid-template-columns:1fr;gap:14px" class="two">
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Stay title *</label><input type="text" id="lTitle" placeholder="e.g. 2BR ocean-view week"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Destination *</label><select id="lDest"><option value="">Select…</option><option>Maldives</option><option>Bali</option><option>Swiss Alps</option><option>Miami</option><option>Santorini</option><option>Bora Bora</option></select><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Resort *</label><input type="text" id="lResort" placeholder="Resort name"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Check-in week *</label><input type="date" id="lDate"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Points required</label><input type="number" id="lPts" placeholder="e.g. 1800"></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Price / night ($) *</label><input type="number" id="lPrice" placeholder="e.g. 320"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Bedrooms</label><select id="lBed"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+                <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Max guests</label><select id="lGuests"><option>2</option><option>4</option><option>6</option><option>8</option></select></div>
+              </div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Description *</label><textarea id="lDesc" rows="3" placeholder="Describe the resort, unit, views, amenities…"></textarea><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required (min 20 chars).</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Photos</label><input type="file" id="lPhotos" multiple accept="image/*" style="padding:10px"><div style="font-size:11.5px;color:var(--muted-2);margin-top:5px">Demo — file picker only; no upload happens.</div></div>
+              <button type="submit" class="btn btn-gold" style="width:100%">Submit listing for review (demo)</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VIEW: TRAVELER ============ -->
+<div class="view" id="view-traveler">
+  <div class="page-head">
+    <div class="wrap">
+      <span class="kicker">For travelers</span>
+      <h1>Your escape starts here</h1>
+      <p>Search, request and confirm resort weeks. Demo account flow with illustrative data.</p>
+    </div>
+  </div>
+  <section style="padding-top:56px">
+    <div class="wrap">
+      <div class="t-grid2" style="display:grid;grid-template-columns:1fr;gap:26px">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px">
+          <div class="auth-tabs" style="display:flex;gap:8px;margin-bottom:26px">
+            <button class="auth-tab on" data-tab="login">Traveler login</button>
+            <button class="auth-tab" data-tab="register">Register</button>
+          </div>
+          <form id="tLogin" novalidate>
+            <div style="display:grid;grid-template-columns:1fr;gap:14px">
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input type="email" id="tEmail" placeholder="you@example.com"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a valid email.</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Password *</label><input type="password" id="tPass" placeholder="••••••••"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a password (min 6 chars).</div></div>
+              <button type="submit" class="btn btn-deep" style="width:100%">Sign in (demo)</button>
+            </div>
+          </form>
+          <form id="tRegister" style="display:none" novalidate>
+            <div style="display:grid;grid-template-columns:1fr;gap:14px">
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Full name *</label><input type="text" id="trName" placeholder="Your name"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter your name.</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input type="email" id="trEmail" placeholder="you@example.com"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a valid email.</div></div>
+              <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Password *</label><input type="password" id="trPass" placeholder="Min 6 characters"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Min 6 characters.</div></div>
+              <button type="submit" class="btn btn-gold" style="width:100%">Register as traveler (demo)</button>
+              <p style="font-size:11.5px;color:var(--muted-2);text-align:center">Demo only — no real account is created.</p>
+            </div>
+          </form>
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px">
+          <h3 style="font-size:22px;color:var(--deep);margin-bottom:6px">Traveler dashboard</h3>
+          <p style="font-size:13.5px;color:var(--muted);margin-bottom:22px">Illustrative dashboard — upcoming trips and saved stays appear here.</p>
+          <div style="display:grid;grid-template-columns:1fr;gap:14px">
+            <div style="border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+              <div><b style="color:var(--deep)">Ocean Lagoon Villa, Maldives</b><div style="font-size:12.5px;color:var(--muted)">14 – 21 March · 4 guests · Confirmed (demo)</div></div>
+              <span style="background:var(--gold-soft);color:#7A6420;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px">VR-8K2M1D</span>
+            </div>
+            <div style="border:1px dashed var(--line);border-radius:10px;padding:22px;text-align:center;color:var(--muted-2);font-size:13.5px" id="wishDash">Your saved stays will appear here. Use ♥ on any listing.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VIEW: ABOUT ============ -->
+<div class="view" id="view-about">
+  <div class="page-head">
+    <div class="wrap">
+      <span class="kicker">About</span>
+      <h1>Connecting owners and travelers</h1>
+      <p>Vistara Escapes is a fictional timeshare marketplace concept built by TablePilot Studio to demonstrate a luxury travel platform design.</p>
+    </div>
+  </div>
+  <section style="padding-top:60px">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr;gap:40px;align-items:center">
+        <div>
+          <h2 style="color:var(--deep)">A marketplace with hospitality at its core</h2>
+          <p style="color:var(--muted);font-size:15.5px;margin-bottom:14px">Timeshares are a brilliant way to travel — if the weeks are used. Vistara Escapes turns unused weeks into stays for travellers, with a verified, secure and beautifully simple marketplace.</p>
+          <p style="color:var(--muted);font-size:15.5px;margin-bottom:14px">This demonstration shows the full concept: owner listing, traveler search, booking requests, dashboards and the complete set of policy pages a real marketplace needs. No real accounts, payments or bookings exist here.</p>
+          <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:26px">
+            <div style="border:1px solid var(--line);background:#fff;border-radius:12px;padding:18px 22px;min-width:140px"><b style="font-family:var(--serif);font-size:28px;color:var(--gold)">1,200+</b><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Demo stays</div></div>
+            <div style="border:1px solid var(--line);background:#fff;border-radius:12px;padding:18px 22px;min-width:140px"><b style="font-family:var(--serif);font-size:28px;color:var(--gold)">40+</b><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Resorts</div></div>
+            <div style="border:1px solid var(--line);background:#fff;border-radius:12px;padding:18px 22px;min-width:140px"><b style="font-family:var(--serif);font-size:28px;color:var(--gold)">5%</b><div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Booking fee</div></div>
+          </div>
+        </div>
+        <div style="position:relative"><img src="assets/lagoon.webp" alt="Lagoon aerial" style="border-radius:14px;width:100%;aspect-ratio:16/10;object-fit:cover;box-shadow:0 30px 60px rgba(12,36,50,.18)"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VIEW: CONTACT ============ -->
+<div class="view" id="view-contact">
+  <div class="page-head">
+    <div class="wrap">
+      <span class="kicker">Contact</span>
+      <h1>Talk to the (demo) team</h1>
+      <p>Questions, feedback or partnership ideas — this demo form captures the message locally only.</p>
+    </div>
+  </div>
+  <section style="padding-top:60px">
+    <div class="wrap" style="max-width:760px">
+      <form id="contactForm" novalidate style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px">
+        <div class="confirm" id="cConfirm" style="display:none;text-align:center;padding:20px 6px">
+          <div style="font-family:var(--serif);font-size:38px;color:var(--gold)">✦</div>
+          <h3 style="font-size:23px;color:var(--deep);margin:10px 0 6px">Message received</h3>
+          <p style="color:var(--muted);font-size:13.5px">Demo only — nothing was sent. Sample reference:</p>
+          <div style="display:inline-block;border:1px dashed var(--gold);padding:9px 20px;border-radius:8px;font-family:var(--serif);font-size:17px;letter-spacing:.1em;color:var(--gold);margin:14px 0 6px;font-weight:400" id="cRef">VE-000000</div>
+          <button type="button" class="btn btn-deep" onclick="resetContact()">Send another</button>
+        </div>
+        <div id="cBody">
+          <div style="display:grid;grid-template-columns:1fr;gap:14px">
+            <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Your name *</label><input type="text" id="cName" placeholder="Full name"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter your name.</div></div>
+            <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Email *</label><input type="email" id="cEmail" placeholder="you@example.com"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Enter a valid email.</div></div>
+            <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Topic</label><select id="cTopic"><option>General question</option><option>Owners</option><option>Travelers</option><option>Partnerships</option></select></div>
+            <div><label style="font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Message *</label><textarea id="cMsg" rows="4" placeholder="How can we help?"></textarea><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Message too short.</div></div>
+            <button type="submit" class="btn btn-gold" style="width:100%">Send message</button>
+            <p style="font-size:11.5px;color:var(--muted-2);text-align:center">Demo form — no real email is sent.</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VIEW: POLICIES ============ -->
+<div class="view" id="view-policies">
+  <div class="page-head">
+    <div class="wrap">
+      <span class="kicker">Legal &amp; policies</span>
+      <h1>Marketplace policies</h1>
+      <p>Illustrative policy pages for a production marketplace. All text below is demo content for presentation only.</p>
+    </div>
+  </div>
+  <section style="padding-top:56px">
+    <div class="wrap">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px" id="polTabs"></div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px" id="polBody"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="mark"></span>Vistara Escapes</div>
+        <p class="foot-copy">A fictional timeshare marketplace used to demonstrate a luxury travel platform concept for potential clients.</p>
+        <div class="demo-banner">Demonstration website by TablePilot Studio. All stays, owners, travelers, fees and policies are illustrative demo content.</div>
+        <div class="social">
+          <a href="#/contact" data-toast="Demo social link — no real account">f</a>
+          <a href="#/contact" data-toast="Demo social link — no real account">in</a>
+          <a href="#/contact" data-toast="Demo social link — no real account">◎</a>
+        </div>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#/listings">Browse stays</a>
+        <a href="#/owner">List a stay</a>
+        <a href="#/traveler">Traveler account</a>
+        <a href="#/about">About</a>
+        <a href="#/contact">Contact</a>
+      </div>
+      <div>
+        <h4>Owners</h4>
+        <a href="#/policies/host-agreement">Host / owner agreement</a>
+        <a href="#/policies/fees">Fees explained</a>
+        <a href="#/policies/refund-policy">Refund &amp; cancellation</a>
+        <a href="#/policies/acceptable-use">Acceptable use</a>
+        <a href="#/policies/community-guidelines">Community guidelines</a>
+      </div>
+      <div>
+        <h4>Travelers</h4>
+        <a href="#/policies/guest-agreement">Guest booking agreement</a>
+        <a href="#/policies/privacy-policy">Privacy policy</a>
+        <a href="#/policies/terms">Terms &amp; conditions</a>
+        <a href="#/policies/cookie-policy">Cookie policy</a>
+        <a href="#/policies/dmca">DMCA / copyright</a>
+      </div>
+    </div>
+  </div>
+  <div class="maker">Website concept by <b>TablePilot Studio</b> · Vistara Escapes is a fictional demo brand</div>
+</footer>
+
+<script>
+/* ================= DATA ================= */
+const STAYS = [
+  {id:1, title:'Ocean Lagoon Villa', dest:'Maldives', resort:'Blue Atoll Resort', img:'villa.webp', price:450, pts:2500, bed:3, guests:6, tag:'Island week', desc:'A private two-storey villa over a turquoise lagoon, with an infinity pool, beach deck and dedicated resort butler. A full week in high season.', amenities:['Infinity pool','Beach access','Butler service','Kitchen','Housekeeping']},
+  {id:2, title:'Garden Pool Villa', dest:'Bali', resort:'Laguna Gardens', img:'garden.webp', price:320, pts:1800, bed:2, guests:4, tag:'Tropical', desc:'A lush garden villa with a private pool, sun deck and open-air pavilion. Steps from the resort spa and beach club.', amenities:['Private pool','Spa access','Sun deck','Beach club','Breakfast']},
+  {id:3, title:'Alpine Timber Lodge', dest:'Swiss Alps', resort:'Alpine Crest Lodge', img:'lodge.webp', price:390, pts:2100, bed:3, guests:6, tag:'Ski week', desc:'A warm timber lodge with panoramic windows over the valley, fireplace and direct access to ski lifts in winter and trails in summer.', amenities:['Fireplace','Ski access','Panoramic views','Hot tub','Garage']},
+  {id:4, title:'Ocean View Suite', dest:'Miami', resort:'Ocean Grand', img:'suite.webp', price:280, pts:1400, bed:1, guests:2, tag:'City & sea', desc:'A bright one-bedroom suite on a high floor with floor-to-ceiling ocean views, walkable to the beach and the marina.', amenities:['Ocean view','Pool','Gym','Valet parking','Concierge']},
+  {id:5, title:'White Cliff Retreat', dest:'Santorini', resort:'White Cliff Retreat', img:'villa.webp', price:360, pts:1900, bed:2, guests:4, tag:'Cliffside', desc:'A cave-style suite carved into the caldera cliff, with a private terrace and hot tub overlooking the Aegean.', amenities:['Caldera view','Private terrace','Hot tub','Sunset spot','Concierge']},
+  {id:6, title:'Overwater Bungalow', dest:'Bora Bora', resort:'Blue Atoll Resort', img:'hero.webp', price:520, pts:2800, bed:1, guests:2, tag:'Honeymoon', desc:'A classic overwater bungalow with direct lagoon access, glass floor panels and sunset-facing deck. The ultimate escape week.', amenities:['Overwater deck','Lagoon access','Glass floor','Snorkelling','Butler']}
+];
+const POLICIES = {
+  'privacy-policy':{t:'Privacy Policy', c:'This is illustrative demo content for a privacy policy. A production platform would describe, in plain language: what personal data is collected (names, emails, booking details), why it is collected (account management, bookings, support), how it is stored and protected, who it is shared with (owners, payment providers, as legally required), how long it is kept, and the user rights to access, correct or delete their data. No real data is collected by this demonstration.'},
+  'terms':{t:'Terms & Conditions', c:'Illustrative demo terms. A production terms page would cover: eligibility to use the platform, owner and traveler responsibilities, the marketplace role of the platform (facilitating, not owning, stays), listing accuracy, booking obligations, fees, prohibited conduct, liability limits, dispute resolution and governing law. This demo text is for presentation only and creates no legal agreement.'},
+  'refund-policy':{t:'Refund & Cancellation', c:'Illustrative refund and cancellation policy. A production policy would define: cancellation windows (e.g. full refund up to 30 days before check-in), partial refunds, no-show terms, how owner and traveler fees are handled, and the 5% platform fee treatment. Real policies must be confirmed with the client before launch.'},
+  'cookie-policy':{t:'Cookie Policy', c:'Illustrative cookie policy. A production page would explain: which cookies are used (essential, analytics, preferences), why, how long they persist, how to manage or disable cookies in the browser, and any third-party tracking. No tracking cookies are set by this static demonstration.'},
+  'host-agreement':{t:'Host / Owner Agreement', c:'Illustrative owner agreement. A production agreement would define: owner eligibility and verification, listing standards, the listing fee ($49.99 demo), annual membership ($19.99 demo), the 5% booking commission, payout schedules, cancellation handling, insurance and liability, and the owner obligations to honour confirmed weeks.'},
+  'guest-agreement':{t:'Traveler Booking Agreement', c:'Illustrative traveler agreement. A production agreement would define: how booking requests work, payment and authorisation, the 5% platform fee, owner cancellation rights, traveler responsibilities, and what happens if a confirmed stay falls through. This demo creates no real booking.'},
+  'disclaimer':{t:'Disclaimer', c:'Illustrative disclaimer. Vistara Escapes is a demonstration website by TablePilot Studio. All stays, prices, points, owners, travelers, testimonials and policies are fictional. No real bookings, payments or accounts exist. Any resemblance to real businesses is coincidental.'},
+  'acceptable-use':{t:'Acceptable Use Policy', c:'Illustrative acceptable use policy. A production AUP would prohibit: fraudulent listings, misrepresentation, spam, harassment, illegal activities, infringement of others rights, and abuse of the booking or review systems, with consequences including listing removal and account suspension.'},
+  'community-guidelines':{t:'Community Guidelines', c:'Illustrative community guidelines. A production set of guidelines would encourage: respectful communication, honest listings and reviews, timely responses, and dispute resolution through the platform rather than publicly.'},
+  'dmca':{t:'DMCA / Copyright Policy', c:'Illustrative DMCA policy. A production policy would describe: how copyright owners can submit a takedown notice, the required information (identification of the work, the infringing material, contact details, good-faith statement), the counter-notice process, and the designated agent contact. Contact details are placeholders.'},
+  'fees':{t:'Fees Explained', c:'Illustrative fees for the demo marketplace: a one-time listing fee of $49.99 per stay for owners, an annual owner membership of $19.99, and a 5% platform fee on completed bookings. Traveler membership is free. No payments are processed by this demonstration.'}
+};
+const POL_KEYS = Object.keys(POLICIES);
+
+/* ================= STATE ================= */
+let wish = JSON.parse(localStorage.getItem('ve_wish') || '[]');
+let filters = {dest:'', resort:'', price:99999, bed:0, sort:'featured', search:''};
+
+/* ================= TOAST ================= */
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(msg){
+  toast.textContent = msg; toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+/* ================= RENDER: cards ================= */
+function cardHTML(s, opts){
+  const saved = wish.includes(s.id);
+  return '<div class="listing-card" onclick="location.hash=\'#/listing/' + s.id + '\'">' +
+    '<div class="lc-img"><img src="assets/' + s.img + '" alt="' + s.title + '" loading="lazy">' +
+    '<span class="lc-tag">' + s.tag + '</span>' +
+    '<button class="lc-wish' + (saved?' saved':'') + '" data-wish="' + s.id + '" onclick="event.stopPropagation();toggleWish(' + s.id + ')" aria-label="Save stay">♥</button></div>' +
+    '<div class="lc-body"><div class="lc-dest">' + s.dest + '</div><h3>' + s.title + '</h3>' +
+    '<div class="lc-meta">' + s.resort + ' · ' + s.bed + ' bed · ' + s.guests + ' guests</div>' +
+    '<div class="lc-foot"><div class="lc-price"><b>$' + s.price + '</b> / night</div><div class="lc-pts">' + s.pts + ' pts</div></div></div></div>';
+}
+function renderGrid(gridEl, list){
+  gridEl.innerHTML = list.length ? list.map(s => cardHTML(s)).join('') : '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0">No stays match your filters — try widening the search.</p>';
+}
+function getFiltered(){
+  let list = STAYS.filter(s =>
+    (!filters.dest || s.dest === filters.dest) &&
+    (!filters.resort || s.resort === filters.resort) &&
+    s.price <= filters.price &&
+    (filters.bed === 0 || s.bed === filters.bed) &&
+    (!filters.search || (s.title + ' ' + s.dest + ' ' + s.resort).toLowerCase().includes(filters.search.toLowerCase())));
+  if(filters.sort === 'price-asc') list = [...list].sort((a,b)=>a.price-b.price);
+  if(filters.sort === 'price-desc') list = [...list].sort((a,b)=>b.price-a.price);
+  if(filters.sort === 'points-asc') list = [...list].sort((a,b)=>a.pts-b.pts);
+  return list;
+}
+
+/* ================= WISHLIST ================= */
+function toggleWish(id){
+  const i = wish.indexOf(id);
+  if(i >= 0) wish.splice(i,1); else wish.push(id);
+  localStorage.setItem('ve_wish', JSON.stringify(wish));
+  updateWish();
+  showToast(i >= 0 ? 'Removed from saved stays' : 'Saved to your stays ♥');
+}
+function updateWish(){
+  const cnt = document.getElementById('wishCnt');
+  if(cnt) cnt.textContent = wish.length;
+  document.querySelectorAll('[data-wish]').forEach(b => b.classList.toggle('saved', wish.includes(+b.dataset.wish)));
+  const wd = document.getElementById('wishDash');
+  if(wd){
+    if(wish.length){ wd.innerHTML = wish.map(id => {
+      const s = STAYS.find(x => x.id === id);
+      return '<div style="border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin-bottom:8px;text-align:left;display:flex;justify-content:space-between;align-items:center"><span><b style="color:var(--deep)">' + s.title + '</b><div style="font-size:12px;color:var(--muted)">' + s.dest + ' · $' + s.price + '/night</div></span><button class="btn btn-line btn-sm" onclick="toggleWish(' + id + ')">Remove</button></div>';
+    }).join(''); }
+    else wd.textContent = 'Your saved stays will appear here. Use ♥ on any listing.';
+  }
+}
+
+/* ================= ROUTER ================= */
+function parseHash(){
+  const h = location.hash.replace(/^#\/?/, '');
+  return h.split('/').filter(Boolean);
+}
+function showView(name){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('view-' + name);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a =>
+    a.classList.toggle('active', a.dataset.nav === name));
+  window.scrollTo(0,0);
+}
+function route(){
+  const parts = parseHash();
+  const name = parts[0] || 'home';
+  if(name === 'listing' && parts[1]){ renderListing(+parts[1]); showView('listing'); }
+  else if(name === 'request' && parts[1]){ requestForm(+parts[1]); showView('listing'); }
+  else if(name === 'policies'){ renderPolicies(parts[1] || 'privacy-policy'); showView('policies'); }
+  else if(['home','listings','owner','traveler','about','contact'].includes(name)){ showView(name); if(name==='listings') syncFilters(); }
+  else { showView('home'); }
+}
+window.addEventListener('hashchange', route);
+
+/* ================= LISTING DETAIL ================= */
+function renderListing(id){
+  const s = STAYS.find(x => x.id === id);
+  const el = document.getElementById('listingDetail');
+  if(!s){ el.innerHTML = '<p>Stay not found.</p>'; return; }
+  const saved = wish.includes(s.id);
+  el.innerHTML =
+    '<div class="back" style="margin-bottom:22px"><button class="btn btn-line btn-sm" onclick="location.hash=\'#/listings\'">← Back to stays</button></div>' +
+    '<div style="display:grid;grid-template-columns:1fr;gap:36px;align-items:start">' +
+      '<div><img src="assets/' + s.img + '" alt="' + s.title + '" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid var(--line)">' +
+      '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px">' +
+        '<img src="assets/' + s.img + '" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--line);filter:brightness(.96)">' +
+        '<img src="assets/lagoon.webp" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--line)">' +
+      '</div></div>' +
+      '<div>' +
+        '<span class="kicker">' + s.dest + '</span>' +
+        '<h2 style="color:var(--deep)">' + s.title + '</h2>' +
+        '<p style="color:var(--muted)">' + s.resort + ' · ' + s.bed + ' bedroom · sleeps ' + s.guests + '</p>' +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0">' +
+          '<span style="background:var(--gold-soft);color:#7A6420;font-size:11px;font-weight:700;padding:6px 13px;border-radius:20px">' + s.pts + ' points</span>' +
+          '<span style="background:var(--gold-soft);color:#7A6420;font-size:11px;font-weight:700;padding:6px 13px;border-radius:20px">' + s.tag + '</span>' +
+        '</div>' +
+        '<div style="font-size:15px;color:var(--ink);line-height:1.75;margin-bottom:18px">' + s.desc + '</div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px">' + s.amenities.map(a => '<span style="border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 12px;font-size:12.5px;color:var(--muted)">' + a + '</span>').join('') + '</div>' +
+        '<div style="border:1px solid var(--line);border-radius:12px;background:#fff;padding:22px 24px">' +
+          '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:12px;color:var(--muted)">Nightly rate</span><span style="font-family:var(--serif);font-size:32px;color:var(--deep)">$' + s.price + '</span></div>' +
+          '<div style="font-size:12px;color:var(--muted-2);margin-bottom:16px">Illustrative demo price · 5% platform fee applies to completed bookings</div>' +
+          '<button class="btn btn-gold" style="width:100%" onclick="location.hash=\'#/request/' + s.id + '\'">Request this week</button>' +
+          '<button class="btn btn-line btn-sm" style="width:100%;margin-top:8px" onclick="toggleWish(' + s.id + ')">♥ ' + (saved?'Saved':'Save this stay') + '</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+/* ================= REQUEST FLOW (inline in listing view) ================= */
+function requestForm(id){
+  const s = STAYS.find(x => x.id === id);
+  const el = document.getElementById('listingDetail');
+  el.innerHTML =
+    '<div style="max-width:720px;margin:0 auto">' +
+      '<div class="back" style="margin-bottom:22px"><button class="btn btn-line btn-sm" onclick="location.hash=\'#/listing/' + id + '\'">← Back to ' + s.title + '</button></div>' +
+      '<div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px">' +
+        '<h2 style="color:var(--deep)">Request this week</h2>' +
+        '<p style="color:var(--muted);font-size:13.5px;margin-bottom:20px">' + s.title + ' · ' + s.dest + ' · $' + s.price + '/night · ' + s.pts + ' pts. Demo request only — nothing is sent.</p>' +
+        '<div class="r-form">' +
+          '<div style="display:grid;grid-template-columns:1fr;gap:14px">' +
+            '<div><label class="rl">Your name *</label><input id="rName" type="text" placeholder="Full name"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>' +
+            '<div><label class="rl">Email *</label><input id="rEmail" type="email" placeholder="you@example.com"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Valid email required.</div></div>' +
+            '<div style="display:grid;grid-template-columns:1fr;gap:14px" class="two"><div><label class="rl">Check-in *</label><input id="rDate" type="date"><div class="f-error" style="display:none;color:#C43E3E;font-size:12px;margin-top:5px">Required.</div></div>' +
+            '<div><label class="rl">Guests *</label><select id="rGuests"><option>2</option><option>4</option><option>6</option><option>8</option></select></div></div>' +
+            '<div><label class="rl">Message to owner</label><textarea id="rMsg" rows="3" placeholder="Anything the owner should know…"></textarea></div>' +
+            '<button class="btn btn-gold" style="width:100%" onclick="submitRequest(' + id + ')">Submit booking request</button>' +
+            '<p style="font-size:11.5px;color:var(--muted-2);text-align:center">Demo — no real request is sent. Production build would email the owner and open a secure payment step.</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+function submitRequest(id){
+  const s = STAYS.find(x => x.id === id);
+  let ok = true;
+  const name = document.getElementById('rName');
+  const email = document.getElementById('rEmail');
+  const date = document.getElementById('rDate');
+  const markF = (f, bad) => { const er = f.parentElement.querySelector('.f-error'); if(er) er.style.display = bad ? 'block':'none'; f.style.borderColor = bad ? '#C43E3E':''; return !bad; };
+  ok = markF(name, name.value.trim().length < 2) && ok;
+  ok = markF(email, !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) && ok;
+  ok = markF(date, !date.value) && ok;
+  if(!ok){ showToast('Please complete the highlighted fields.'); return; }
+  const ref = 'VR-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const guests = document.getElementById('rGuests').value;
+  const d = new Date(date.value + 'T00:00:00');
+  const dstr = d.toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'});
+  document.getElementById('listingDetail').innerHTML =
+    '<div style="max-width:720px;margin:0 auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:44px">' +
+      '<div style="font-family:var(--serif);font-size:44px;color:var(--gold)">✦</div>' +
+      '<h2 style="color:var(--deep);margin:14px 0 8px">Request submitted</h2>' +
+      '<p style="color:var(--muted);font-size:14px;max-width:440px;margin:0 auto 18px">Demo confirmation — the owner would receive this request by email and respond within 24 hours.</p>' +
+      '<div style="display:inline-block;border:1px dashed var(--gold);padding:10px 24px;border-radius:8px;font-family:var(--serif);font-size:20px;letter-spacing:.1em;color:var(--gold);margin-bottom:24px">' + ref + '</div>' +
+      '<div style="text-align:left;max-width:420px;margin:0 auto 26px;border:1px solid var(--line);border-radius:10px;padding:16px 20px;font-size:13.5px">' +
+        '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span style="color:var(--muted)">Stay</span><b>' + s.title + '</b></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span style="color:var(--muted)">Check-in</span><b>' + dstr + '</b></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span style="color:var(--muted)">Guests</span><b>' + guests + '</b></div>' +
+        '<div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:var(--muted)">Rate</span><b>$' + s.price + '/night</b></div>' +
+      '</div>' +
+      '<button class="btn btn-gold" onclick="location.hash=\'#/listings\'">Continue browsing</button>' +
+      '<button class="btn btn-line" style="margin-left:10px" onclick="location.hash=\'#/traveler\'">Go to traveler dashboard</button>' +
+    '</div>';
+  showToast('Booking request created: ' + ref);
+}
+
+/* ================= FILTERS ================= */
+function syncFilters(){
+  ['fDest','fResort','fPrice','fBed','fSort'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const map = {fDest:'dest', fResort:'resort', fPrice:'price', fBed:'bed', fSort:'sort'};
+    el.value = filters[map[id]] === 0 ? '0' : (filters[map[id]] || '');
+  });
+  const se = document.getElementById('fSearch'); if(se) se.value = filters.search;
+  applyFilters();
+}
+function readFilters(){
+  const v = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+  filters.dest = v('fDest');
+  filters.resort = v('fResort');
+  filters.price = +v('fPrice') || 99999;
+  filters.bed = +v('fBed') || 0;
+  filters.sort = v('fSort') || 'featured';
+  filters.search = v('fSearch').trim();
+}
+function applyFilters(){
+  readFilters();
+  const list = getFiltered();
+  renderGrid(document.getElementById('listingsGrid'), list);
+  const cnt = document.getElementById('listCount');
+  if(cnt) cnt.textContent = list.length + ' stay' + (list.length===1?'':'s') + ' shown · demo data';
+}
+['fDest','fResort','fPrice','fBed','fSort'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('change', applyFilters);
+});
+const fSe = document.getElementById('fSearch');
+if(fSe) fSe.addEventListener('input', applyFilters);
+function syncFilters(){ applyFilters(); }
+function doSearch(){
+  const sd = document.getElementById('sDest');
+  if(sd && sd.value){ const fd = document.getElementById('fDest'); if(fd) fd.value = sd.value; }
+  location.hash = '#/listings';
+  setTimeout(applyFilters, 30);
+}
+
+/* ================= POLICIES ================= */
+function renderPolicies(key){
+  const tabs = document.getElementById('polTabs');
+  tabs.innerHTML = POL_KEYS.map(k =>
+    '<button class="pol-link' + (k===key?' active':'') + '" style="' + (k===key?'border-color:var(--gold);color:var(--gold)':'') + '" onclick="location.hash=\'#/policies/' + k + '\'">' + POLICIES[k].t + '</button>').join('');
+  const body = document.getElementById('polBody');
+  body.innerHTML = '<h2 style="color:var(--deep);font-size:28px">' + POLICIES[key].t + '</h2>' +
+    '<div style="width:44px;height:2px;background:var(--gold);margin:14px 0 22px"></div>' +
+    '<p style="color:var(--muted);font-size:15px;line-height:1.85;max-width:820px">' + POLICIES[key].c + '</p>' +
+    '<p style="margin-top:26px;font-size:12px;color:var(--muted-2)">Demo content for presentation — replace with client-approved legal text before launch.</p>';
+}
+
+/* ================= POLICIES STRIP (home) ================= */
+function renderStrip(){
+  const el = document.getElementById('polStrip');
+  if(el) el.innerHTML = POL_KEYS.map(k => '<button class="pol-link" onclick="location.hash=\'#/policies/' + k + '\'">' + POLICIES[k].t + '</button>').join('');
+}
+
+/* ================= AUTH TABS ================= */
+document.querySelectorAll('.auth-tabs').forEach(wrap => {
+  wrap.querySelectorAll('.auth-tab').forEach(btn => btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    wrap.querySelectorAll('.auth-tab').forEach(b => b.classList.toggle('on', b === btn));
+    const scope = wrap.closest('div');
+    const login = scope.querySelector('form:first-of-type');
+    const reg = scope.querySelector('form:last-of-type');
+    if(tab === 'login'){ login.style.display = ''; reg.style.display = 'none'; }
+    else { login.style.display = 'none'; reg.style.display = ''; }
+  }));
+});
+
+/* ================= FORM VALIDATION ================= */
+function bindSimple(formId, fields, okFn){
+  const form = document.getElementById(formId);
+  if(!form) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let ok = true;
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const er = el.parentElement.querySelector('.f-error');
+      const bad = !f.test(el.value);
+      if(er) er.style.display = bad ? 'block' : 'none';
+      el.style.borderColor = bad ? '#C43E3E' : '';
+      ok = ok && !bad;
+    });
+    if(!ok){ showToast('Please complete the highlighted fields.'); return; }
+    okFn();
+  });
+}
+bindSimple('ownerLogin', [
+  {id:'oEmail', test:v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())},
+  {id:'oPass', test:v => v.length >= 6}
+], () => showToast('Demo owner sign-in accepted — no real account.'));
+bindSimple('ownerRegister', [
+  {id:'orName', test:v => v.trim().length >= 2},
+  {id:'orEmail', test:v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())},
+  {id:'orPass', test:v => v.length >= 6}
+], () => { showToast('Demo owner account created — $49.99 listing fee & $19.99 annual shown only.'); location.hash = '#/owner'; });
+bindSimple('tLogin', [
+  {id:'tEmail', test:v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())},
+  {id:'tPass', test:v => v.length >= 6}
+], () => showToast('Demo traveler sign-in accepted — no real account.'));
+bindSimple('tRegister', [
+  {id:'trName', test:v => v.trim().length >= 2},
+  {id:'trEmail', test:v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())},
+  {id:'trPass', test:v => v.length >= 6}
+], () => { showToast('Demo traveler account created.'); location.hash = '#/traveler'; });
+bindSimple('listForm', [
+  {id:'lTitle', test:v => v.trim().length >= 3},
+  {id:'lDest', test:v => v.trim().length >= 2},
+  {id:'lResort', test:v => v.trim().length >= 2},
+  {id:'lDate', test:v => !!v},
+  {id:'lPrice', test:v => +v > 0},
+  {id:'lDesc', test:v => v.trim().length >= 20}
+], () => { showToast('Demo listing submitted for review — fees apply in production.'); document.getElementById('listForm').reset(); });
+bindSimple('contactForm', [
+  {id:'cName', test:v => v.trim().length >= 2},
+  {id:'cEmail', test:v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())},
+  {id:'cMsg', test:v => v.trim().length >= 10}
+], () => {
+  document.getElementById('cRef').textContent = 'VE-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  document.getElementById('cBody').style.display = 'none';
+  document.getElementById('cConfirm').style.display = 'block';
+});
+function resetContact(){
+  document.getElementById('contactForm').reset();
+  document.querySelectorAll('#contactForm .f-error').forEach(e => e.style.display = 'none');
+  document.getElementById('cConfirm').style.display = 'none';
+  document.getElementById('cBody').style.display = '';
+}
+
+/* ================= MENU / FAQ / REVEAL ================= */
+const menuBtn = document.getElementById('menuBtn');
+const navLinksEl = document.getElementById('navLinks');
+menuBtn.addEventListener('click', () => {
+  const open = navLinksEl.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.textContent = open ? '✕' : '☰';
+});
+navLinksEl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinksEl.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); menuBtn.textContent = '☰';
+}));
+document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () => {
+  const item = q.closest('.faq-item');
+  item.classList.toggle('open');
+}));
+document.querySelectorAll('[data-toast]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showToast(a.dataset.toast); }));
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+}, {threshold:.1});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* ================= INIT ================= */
+renderStrip();
+renderGrid(document.getElementById('featuredGrid'), STAYS.slice(0,4));
+applyFilters();
+updateWish();
+route();
+document.querySelectorAll('.two').forEach(w => { w.style.gridTemplateColumns = '1fr'; if(window.innerWidth >= 560) w.style.gridTemplateColumns = '1fr 1fr'; });
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.two').forEach(w => w.style.gridTemplateColumns = window.innerWidth >= 560 ? '1fr 1fr' : '1fr');
+});
+</script>
+</body>
+</html>
